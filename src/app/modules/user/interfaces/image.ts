@@ -7,4 +7,6 @@ export interface Image {
     _id: string;
     title?: string;
     description?: string;
+    owner?: any;
+    comments?: Array<any>;
 }

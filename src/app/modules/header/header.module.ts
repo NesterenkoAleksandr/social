@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { SearchComponent } from '../search/components/search/search.component';
+// import { SearchComponent } from '../search/components/search/search.component';
+import { SearchModule } from '../search/search.module';
 
 @NgModule({
-  declarations: [HeaderComponent, SearchComponent],
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     RouterModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    SearchModule
   ],
   exports: [
     HeaderComponent

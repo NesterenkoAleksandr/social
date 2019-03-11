@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentsService } from '../../services/comments.service';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
+import { Comment } from '../../interfaces/comment';
 
 @Component({
   selector: 'app-comment',

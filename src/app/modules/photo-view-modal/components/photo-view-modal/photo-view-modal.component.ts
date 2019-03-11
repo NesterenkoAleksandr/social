@@ -5,7 +5,7 @@ import { NgForm} from '@angular/forms';
 import { AuthGlobalService } from 'src/app/services/auth-global.service';
 import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
-import { UserService } from 'src/app/modules/user/services/user.service';
+import { UserService } from '../../../../modules/user/services/user.service';
 
 @Component({
   selector: 'app-photo-view',
@@ -26,7 +26,7 @@ export class PhotoViewModalComponent implements OnInit {
     private photoViewService: PhotoViewService,
     private auth: AuthGlobalService,
     private messageService: MessageService,
-    private userService: UserService
+    public userService: UserService
     ) { }
 
   ngOnInit() {
