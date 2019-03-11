@@ -1,11 +1,11 @@
 <div  class="news-item bg-light-secondary d-flex flex-column flex-lg-row mb-5">
   <div  class="item-info d-flex flex-row flex-lg-column flex-wrap flex-md-nowrap align-items-center flex-shrink-0">
     <div  class="author-info-wrapper d-flex flex-row flex-lg-column align-items-center overflow-hidden">
-      <a  class="author-img overflow-hidden" [href]="'users/' + item?.owner.avatar">
+      <a  class="author-img overflow-hidden" routerLink="/users/{{ item?.owner._id }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <img  alt="" [src]="item?.owner.avatar">
       </a>
       <div  class="author-info d-flex flex-column align-items-start align-items-lg-center">
-        <a  class="author-name text-center text-overflow-ellipsis"[href]="'users/' + item?.owner.avatar">{{ item?.owner.full_name }}</a>
+        <a  class="author-name text-center text-overflow-ellipsis"  routerLink="/users/{{ item?.owner._id }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ item?.owner.full_name }}</a>
         <span  class="author-country">{{ item?.owner.country }}</span>
       </div>
     </div>

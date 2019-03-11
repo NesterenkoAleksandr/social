@@ -4,6 +4,7 @@ import { PhotoViewModalComponent } from './components/photo-view-modal/photo-vie
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { CommentsModule } from '../comments/comments.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [PhotoViewModalComponent],
@@ -11,7 +12,8 @@ import { CommentsModule } from '../comments/comments.module';
     CommonModule,
     FormsModule,
     SharedModule,
-    CommentsModule
+    CommentsModule,
+    RouterModule
   ],
   exports: [
     PhotoViewModalComponent
