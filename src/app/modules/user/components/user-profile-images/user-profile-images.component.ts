@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Image } from '../../interfaces/image';
 import { UserService } from '../../services/user.service';
 import { MessageService } from 'primeng/api';
@@ -9,7 +9,7 @@ import { ServerResponse } from '../../../../interfaces/server-response';
   templateUrl: './user-profile-images.component.html',
   styleUrls: ['./user-profile-images.component.css']
 })
-export class UserProfileImagesComponent implements OnInit {
+export class UserProfileImagesComponent implements OnInit, OnChanges {
   /** Id пользователя, данные которого просматриваются  */
   @Input() userId: string;
 
@@ -28,6 +28,9 @@ export class UserProfileImagesComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {
     this.getImages();
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user';
-import { AuthGlobalService } from 'src/app/services/auth-global.service';
+import { AuthGlobalService } from '../../../../services/auth-global.service';
 import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
 import { Image } from '../../interfaces/image';
@@ -34,11 +34,6 @@ export class UserProfileComponent implements OnInit {
   ) {  }
 
   ngOnInit() {
-    // this.userProfileId = this.activeRoute.snapshot.params.id;
-    // this.authUserId = this.auth.getUserId;
-
-    // this.getUserInfo(this.userProfileId);
-
     this.activeRoute.params.subscribe(res => {
       this.userProfileId = res.id;
       this.authUserId = this.auth.getUserId;
