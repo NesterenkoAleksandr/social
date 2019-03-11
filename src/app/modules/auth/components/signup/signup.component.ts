@@ -3,9 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from './../../../../helpers/errorStateMatcher';
 import { AuthService } from '../../services/auth.service';
 import { MessageService } from 'primeng/api';
-import { User } from '../../interfaces/user';
 import { Router } from '@angular/router';
-import { ServerResponse } from '../../../../interfaces/server-response';
+import { ServerResponse } from './../../../../interfaces/server-response';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-signup',
