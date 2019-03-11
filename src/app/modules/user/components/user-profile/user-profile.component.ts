@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user';
-import { AuthGlobalService } from 'src/app/services/auth-global.service';
-import {MessageService} from 'primeng/api';
+import { AuthGlobalService } from '../../../../services/auth-global.service';
+import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
+import { Image } from '../../interfaces/image';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,6 +15,7 @@ import { ServerResponse } from '../../../../interfaces/server-response';
 export class UserProfileComponent implements OnInit {
   /** Пользователь, данные которого просматриваются */
   public user: User;
+  public images: Array<string>;
 
   /** Текущая вкладка */
   public activeTab = 'selfies';
@@ -29,13 +31,14 @@ export class UserProfileComponent implements OnInit {
     private userService: UserService,
     private auth: AuthGlobalService,
     private messageService: MessageService
-  ) { }
+  ) {  }
 
   ngOnInit() {
-    this.userProfileId = this.activeRoute.snapshot.params.id;
-    this.authUserId = this.auth.getUserId;
-
-    this.getUserInfo(this.userProfileId);
+    this.activeRoute.params.subscribe(res => {
+      this.userProfileId = res.id;
+      this.authUserId = this.auth.getUserId;
+      this.getUserInfo(this.userProfileId);
+    });
   }
 
   /**
@@ -45,6 +48,7 @@ export class UserProfileComponent implements OnInit {
   public getUserInfo(userProfileId: string) {
     this.userService.getUserInfo(userProfileId).subscribe((data: User) => {
       this.user = data;
+      this.images = data.my_images;
     });
   }
 
@@ -61,6 +65,6 @@ export class UserProfileComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-      );
+    );
   }
 }

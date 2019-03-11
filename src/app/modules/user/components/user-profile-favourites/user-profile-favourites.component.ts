@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Image } from '../../interfaces/image';
 import { UserService } from '../../services/user.service';
@@ -8,7 +8,7 @@ import { ServerResponse } from '../../../../interfaces/server-response';
   templateUrl: './user-profile-favourites.component.html',
   styleUrls: ['./user-profile-favourites.component.css']
 })
-export class UserProfileFavouritesComponent implements OnInit {
+export class UserProfileFavouritesComponent implements OnInit, OnChanges {
   /** Id пользователя, данные которого просматриваются  */
   @Input() userId: string;
 
@@ -24,6 +24,9 @@ export class UserProfileFavouritesComponent implements OnInit {
   constructor(private userService: UserService, private messageService: MessageService) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {
     this.getUserFavorites();
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user';
@@ -8,7 +8,8 @@ import { User } from '../../interfaces/user';
   templateUrl: './user-profile-follows.component.html',
   styleUrls: ['./user-profile-follows.component.css']
 })
-export class UserProfileFollowsComponent implements OnInit {
+export class UserProfileFollowsComponent implements OnInit, OnChanges {
+
   /** Id пользователя, данные которого просматриваются  */
   @Input() userId: string;
 
@@ -24,6 +25,9 @@ export class UserProfileFollowsComponent implements OnInit {
   constructor(private userService: UserService, private messageService: MessageService) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {
     this.getUserFollows();
   }
 

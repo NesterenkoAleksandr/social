@@ -12,7 +12,7 @@
               'transition': 'opacity 0.5s ease-in 0s',
               'background-image': 'url(' + user?.cover + ')'}"></div>
             </div>
-            <a  class="follower-item-link d-flex flex-column align-items-center" [href]="'users/' + user?._id">
+            <a  class="follower-item-link d-flex flex-column align-items-center" routerLink="/users/{{ user?._id }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
               <div  class="user-avatar small">
                 <img  alt="" [src]="user?.avatar">
               </div>

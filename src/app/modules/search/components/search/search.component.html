@@ -7,7 +7,7 @@ style="top: 69.5px; left: -420.563px; transform: translateY(0px); opacity: 1;">
         <div class="search-result pos-absolute">
           <p *ngIf="!users?.length && isResultShow">No find any user with this name</p>
           <ng-container *ngFor="let user of users">
-            <a class="user cur-pointer transition" [href]="'users/' + user?._id" >
+            <a class="user cur-pointer transition" routerLink="/users/{{ user?._id }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" >
               <img alt="" [src]="user?.avatar">
               <div class="user-info">
                 <div class="name"> {{ user?.full_name }}</div>
@@ -19,3 +19,4 @@ style="top: 69.5px; left: -420.563px; transform: translateY(0px); opacity: 1;">
       </div>
   </div>
 </div>
+<!-- [href]="'users/' + user?._id" -->
