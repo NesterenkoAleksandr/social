@@ -1,0 +1,81 @@
+.upload-photo-img {
+    width: 109px;
+    height: 105px;
+    background: url(/assets/img/upload-photos.png);
+}
+
+.selfie-item img {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    max-width: none;
+    height: 100%;
+    width: auto;
+}
+
+.upload-photo-btn {
+    height: 100%;
+    padding: 20px;
+}
+
+.upload-photo-btn:hover {
+    -webkit-transform: scale(1.05) translateY(-7%);
+    transform: scale(1.05) translateY(-7%);
+    box-shadow: 0 7px 20px 2px rgba(0,0,0,.25);
+}
+
+.selfie-item, 
+.upload-photo-btn {
+    border-radius: 5px;
+}
+
+.upload-photo-btn span {
+    font-family: 'Mr De Haviland', serif;
+    font-size: 70px;
+}
+
+.selfie-item {
+    background-color: #000;
+    line-height: 0;
+}
+
+.selfie-item .selfie-item-overlay {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    background: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 70%,rgba(0,0,0,.3) 100%);
+    opacity: 0;
+}
+
+.selfie-item:hover .selfie-item-overlay {
+    opacity: 1;
+}
+
+.views-count::before {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    content: "\f06e";
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.likes-count::before {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    content: "\f164";
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.btn-delete-photo {
+    font-size: 20px;
+    padding: 2px;
+}
+
+.btn-delete-photo:hover {
+    color: #7303c0;
+    cursor: pointer;
+}

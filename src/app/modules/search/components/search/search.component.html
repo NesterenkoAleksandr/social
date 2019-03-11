@@ -1,0 +1,21 @@
+<div class="ng-trigger ng-trigger-animation ng-tns-c6-1 ui-overlaypanel ui-widget ui-widget-content ui-corner-all ui-shadow" 
+style="top: 69.5px; left: -420.563px; transform: translateY(0px); opacity: 1;">
+  <div class="ui-overlaypanel-content">
+    <div class="search-wrapper d-flex pos-relative">
+      <div class="search container m-auto pos-relative">
+        <input (keyup)="changeSearchText($event.target.value)" autocomplete="off" name="search" placeholder="Search member..." type="text"></div>
+        <div class="search-result pos-absolute">
+          <p *ngIf="!users?.length && isResultShow">No find any user with this name</p>
+          <ng-container *ngFor="let user of users">
+            <a class="user cur-pointer transition" [href]="'users/' + user?._id" >
+              <img alt="" [src]="user?.avatar">
+              <div class="user-info">
+                <div class="name"> {{ user?.full_name }}</div>
+                <div class="country">{{ user?.city }}</div>
+              </div>
+            </a>
+          </ng-container>          
+        </div>
+      </div>
+  </div>
+</div>

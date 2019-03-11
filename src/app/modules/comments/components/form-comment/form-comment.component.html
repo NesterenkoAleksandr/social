@@ -1,0 +1,18 @@
+<form #form='ngForm' class="write-comment d-flex flex-column" novalidate>
+  <textarea #text="ngModel" [(ngModel)]='comment.text' class="form-control" formcontrolname="text" id="text" name="text" 
+  placeholder="Write a comment..." required></textarea>
+  <div  class="align-self-end">
+    <button type="submit" [disabled]='form.invalid || form.pristine' (click)='onSubmit()' class="btn btn-border-gradient btn-bg-light mt-2 small-btn">
+      <span  class="btn-wrapper">
+        <span>Submit</span>
+        <span  class="pos-absolute spinner-wrapper "></span>
+      </span>
+    </button>
+    <button type="submit" [disabled]='form.invalid || form.pristine' (click)='cancel()' class="btn btn-border-gradient btn-bg-light mt-2 small-btn">
+      <span  class="btn-wrapper">
+        <span>Cancel</span>
+        <span  class="pos-absolute spinner-wrapper "></span>
+      </span>
+    </button>
+  </div>
+</form>

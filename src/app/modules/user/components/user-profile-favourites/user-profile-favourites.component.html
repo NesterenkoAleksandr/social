@@ -1,0 +1,20 @@
+<div class="bg-light-primary py-5">
+  <div id="profile-favorites">
+    <div  class="container mt-5">
+        <div  class="favorites-list d-flex flex-wrap pos-relative">
+          <div class="col-12">
+            <span *ngIf="!images?.length" class="decorative-title text-center">There is no liked any photos yet…</span>
+          </div>
+          <a  *ngFor="let image of images" class="favorites-item" style="width: 370.43px;">
+            <div (click)="showPhotoViewModal(image._id)" class="item-content pos-relative text-color-white h-300 mb-2 mx-2">
+              <img alt="" [src]="image?.url" style="opacity: 1; transition: opacity 0.5s ease-in 0s; position: absolute; left: 50%; transform: translateX(-50%); margin-left: unset !important; height: 100%; max-width: unset;">
+              <i (click)="toggleImageLike(image._id); $event.stopPropagation();" [ngClass]="{ active: userService.isLiked(authUserId, image?.likes) }" class="btn-like fa-icon fa-heart pos-absolute transition fas"></i>
+              <div class="item-overlay pos-absolute transition"></div>
+            </div>
+          </a>
+        </div>
+    </div>
+  </div>
+</div>
+<app-photo-view *ngIf="photoViewModalIsOpened" (onClose)="photoViewModalIsOpened = false" [imageId]="currentImageId"></app-photo-view>
+

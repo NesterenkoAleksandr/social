@@ -1,0 +1,24 @@
+<ng-container>
+  <div class="tabs-control text-uppercase bg-light-secondary">
+    <div class="container d-flex flex-column flex-sm-row justify-content-center"><!---->
+      <a  class="tab pos-relative transition" (click)="getChallenges(1, 0, 'open')"  [ngClass]="{'active': activeTab == 'open'}">Open</a>
+      <a  class="tab pos-relative transition" (click)="getChallenges(0, 0, 'upcoming')" [ngClass]="{'active': activeTab == 'upcoming'}">Upcoming</a>
+      <a  class="tab pos-relative transition" (click)="getChallenges(0, 1, 'closed')" [ngClass]="{'active': activeTab == 'closed'}">Closed</a>
+    </div>
+  </div>
+  <div class="challenges-tab-content">
+    <div class="tabs-content bg-light-primary pt-5">
+        <div class="container">
+          <div class="row">
+            <span class="decorative-title text-center w-100 mb-5" *ngIf="!challenges?.length" >There is no challenges yet…</span>
+            <ng-container *ngFor="let challenge of challenges">
+                <div class="col-12 col-lg-6 col-xl-4">
+                  <app-challenges-item [challenge]="challenge"></app-challenges-item>
+                </div>
+            </ng-container>              
+          </div>
+        </div>
+    </div>
+  </div>
+</ng-container>
+

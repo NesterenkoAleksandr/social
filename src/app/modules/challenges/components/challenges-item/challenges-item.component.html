@@ -1,0 +1,37 @@
+<div class="challenges-item text-center">
+    <span class="item-title d-block">{{ challenge.challenge_name }}</span>
+    <a class="item-content d-block pos-relative overflow-hidden" href="">
+      <img alt="" class="item-img transition" [src]="challenge.background" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
+      <div>
+        <div class="item-overlay d-flex flex-column pos-absolute">
+          <div class="item-button d-flex justify-content-center align-items-center overflow-hidden transition" >
+            <button class="btn btn-transparent btn-sm " *ngIf="challenge.is_active">
+              <span class="btn-wrapper">
+                <span>Join challenge</span>
+              </span>
+            </button>
+          </div>
+          <div class="item-info d-flex flex-shrink-0 text-uppercase">
+            <div class="awards d-flex flex-column justify-content-end">
+              <span class="count">${{ challenge.awards | amountConverter: 2 }}</span>
+              <span class="desc text-overflow-ellipsis">Awards worth</span>
+            </div>
+            <div class="days borders d-flex flex-column justify-content-end">              
+              <span class="count" *appCountdown="challenge.is_active; endDat: challenge.end_date | date : 'short' : 'UTC'" style="font-size: 19px;"></span>
+              <span class="desc text-overflow-ellipsis">{{ challenge.is_active ? 'Days left' : (challenge.is_closed ? (challenge.start_date | date) : '') }}</span>               
+            </div> 
+            <div class="votes d-flex flex-column justify-content-end">
+              <ng-container *ngIf="challenge.is_active || (!challenge.is_active && challenge.is_closed)">
+                <span class="count">{{ challenge.votes | amountConverter: 2 }}</span>
+                <span class="desc text-overflow-ellipsis ">Votes</span>
+              </ng-container>
+              <ng-container *ngIf="!challenge.is_active && !challenge.is_closed">
+                <i class="fa-icon far fa-clock"></i>
+                <span class="desc text-overflow-ellipsis" >Coming soon</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+</div>

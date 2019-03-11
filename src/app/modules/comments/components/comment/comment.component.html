@@ -1,0 +1,24 @@
+<div class="comment-item d-flex pos-relative bg-light-secondary mb-5" [ngClass]="{ reply: !isComment}">
+  <a class="comment-img flex-shrink-0 pos-absolute overflow-hidden" [href]="'users/' + comment.owner._id">
+    <img  alt="" [src]="comment.owner.avatar">
+  </a>
+  <div class="comment-data w-100 d-flex flex-column">
+    <ng-container *ngIf="!isAdd && !isEdit">
+      <p class="comment-text">
+        <a class="comment-author" [href]="'users/' + comment.owner._id">{{ comment.owner.full_name }}</a> {{ comment.text }} 
+      </p>    
+      <div class="comment-info d-flex justify-content-between align-items-center text-color-gray">
+        <span class="comment-date"> {{ comment.time_update | date : 'short' | dateAgo}}</span>
+        <div class="comment-control transition d-flex ">
+          <i *ngIf="comment.owner._id == authUserId" (click)="isAdd = false; isEdit = true" class="btn-edit fa-icon fas fa-pen cur-pointer "></i>
+          <i (click)="isAdd = true; isEdit = false" class="btn-reply fa-icon fas fa-reply cur-pointer ml-auto"></i>
+          <i *ngIf="comment.owner._id == authUserId" 
+          (click)="commentId ? deleteSubComment(commentId, comment._id) : deleteComment(comment._id, comment.image)" 
+          class="btn-delete fa-icon fas fa-trash cur-pointer ml-auto "></i>
+        </div>
+      </div>
+    </ng-container>
+      <app-form-comment *ngIf="isAdd || isEdit" [isEdit]="isEdit" [comment]="comment"  [imageId]="imageId" [commentId]="isAdd ? comment._id || commentId : commentId" 
+    (commentChanged)="commentChanged.emit()" (changeCanceled)="onCanceled()"></app-form-comment>
+  </div>
+</div>

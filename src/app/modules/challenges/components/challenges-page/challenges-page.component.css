@@ -1,0 +1,38 @@
+.tabs-control {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.tabs-control .tab {
+    padding: 35px 30px 16px;
+    font-size: 14px;
+    border-bottom: 2px solid transparent;
+}
+
+.tabs-control .tab:hover {
+    cursor: pointer;
+    font-weight: 700;
+    border-bottom-color: #7303c0;
+}
+
+.tabs-control .container .active {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #e12ebc;
+    border-bottom-color: #e12ebc;
+}
+
+.decorative-title {
+    display: block;
+    font-family: 'Mr De Haviland', serif;
+    font-weight: 400;
+    font-size: 80px;
+    color: #585858;
+    opacity: .2;
+    cursor: default;
+}
+
+.tabs-content:not(.profile-tabs) {
+    min-height: calc(100vh - 200px);
+}

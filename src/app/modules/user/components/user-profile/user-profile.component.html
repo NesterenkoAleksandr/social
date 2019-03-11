@@ -1,0 +1,63 @@
+<ng-container>
+  <div class="section user-profile-wrap pb-5">
+    <div class="user-cover" *ngIf="user" [ngStyle]="{
+      'background': 'url(' + user?.cover + ') no-repeat center/cover ', 
+      'height': '400px'}">
+      <div *ngIf="userProfileId == authUserId" class="container h-100 pos-relative">
+        <label for="background-input" class="cover-btn transition d-flex align-items-center"> 
+          <img alt="" src="assets/img/logo-btn-cover.png">             
+          <span class="ml-2">Change cover</span>            
+        </label>  
+        <input (change)="uploadCover($event.target)" id="background-input" type="file">
+      </div>
+    </div>
+    <div  class="profile-panel bg-light-secondary justify-content-center">
+      <div  class="container d-flex flex-column flex-lg-row align-items-center">
+        <div  class="profile-section d-flex flex-grow-1 align-items-center py-2">
+          <div  class="user-avatar-wrapper pos-relative">
+            <div  class="user-avatar text-color-white cur-pointer">
+              <img  alt="avatar" [src]="user?.avatar">
+              <div *ngIf="userProfileId == authUserId" class="user-avatar-overlay d-flex flex-column justify-content-center text-center pos-absolute transition ng-star-inserted">
+                <i  class="fa-icon fas fa-camera"></i>
+                <span >Change photo</span>
+              </div>
+            </div>
+          </div>
+          <div  class="profile-data d-flex flex-column">
+            <span  class="profile-name text-color-dark text-overflow-ellipsis">{{user?.full_name}}</span>
+            <span  class="profile-country text-color-gray text-overflow-ellipsis">{{user?.country}}</span>
+          </div>
+          <div  class="profile-stats d-flex flex-wrap justify-content-center align-items-end">
+            <span  class="stats-points-count d-block w-100 text-center">{{ user?.rank.points }}</span>
+            <div  class="stats-points-img d-inline-block"></div>
+            <span  class="stats-points-desc text-color-gray text-uppercase">Points</span>
+          </div>
+        </div>
+        <div  class="tabs-control d-flex flex-column flex-sm-row align-self-center text-color-gray">
+            <a  class="tab d-flex flex-column align-items-center transition" (click)="activeTab = 'selfies'" [ngClass]="{'active': activeTab == 'selfies'}">
+              <span  class="tab-count">{{ user?.my_images.length }}</span>
+              <span  class="tab-name text-uppercase">No. Selfies</span>
+            </a>
+            <a  class="tab d-flex flex-column align-items-center transition" (click)="activeTab = 'favourites'" [ngClass]="{'active': activeTab == 'favourites'}">
+              <span  class="tab-count">{{ user?.favourites.length }}</span>
+              <span  class="tab-name text-uppercase">Favourites</span>
+            </a>
+            <a  class="tab d-flex flex-column align-items-center transition" (click)="activeTab = 'followings'" [ngClass]="{'active': activeTab == 'followings'}">
+              <span  class="tab-count">{{ user?.followers.length }}</span>
+              <span  class="tab-name text-uppercase">Followers</span>
+            </a>
+            <a  class="tab d-flex flex-column align-items-center transition" (click)="activeTab = 'followers'" [ngClass]="{'active': activeTab == 'followers'}">
+              <span  class="tab-count">{{ user?.followings.length }}</span>
+              <span  class="tab-name text-uppercase">Followings</span>
+            </a>
+          </div>
+        </div>
+    </div>
+    <div class="user-tab-content">
+      <app-user-profile-images [userId]='userProfileId' [authUserId]="authUserId" *ngIf="activeTab == 'selfies'"></app-user-profile-images>
+      <app-user-profile-favourites [userId]='userProfileId' [authUserId]="authUserId" *ngIf="activeTab == 'favourites'"></app-user-profile-favourites>
+      <app-user-profile-follows [userId]='userProfileId' [authUserId]="authUserId" [path]="activeTab" *ngIf="activeTab == 'followers'"></app-user-profile-follows>
+      <app-user-profile-follows [userId]='userProfileId' [authUserId]="authUserId" [path]="activeTab" *ngIf="activeTab == 'followings'"></app-user-profile-follows>
+    </div>
+  </div>
+</ng-container>

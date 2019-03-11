@@ -1,0 +1,31 @@
+.header {
+    padding: 19px 0;
+    color: #fff;
+    background-color: #212121;
+}
+
+.header a {
+    color: #fff;
+    cursor: pointer;
+}
+
+.header a:hover {
+    color: #e12ebc;
+}
+
+nav li > a.active {
+    color: #e12ebc;
+}
+
+.search-area {
+    padding: 0 10px;
+  }
+  
+ .header-nav li:hover, 
+ .search-area .dropdown-btn:hover {
+    color: #ccc;
+  }
+  
+.search-area .dropdown-btn {
+    font-size: 20px;
+}

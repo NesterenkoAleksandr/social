@@ -1,0 +1,125 @@
+.news-item {
+    width: 100%;
+    max-height: calc(100% - 50px);
+    padding: 40px;
+    border-radius: 5px;
+}
+
+.news-item .item-info {
+    width: 100%;
+    max-width: 191px;
+    margin-right: 40px;
+}
+
+.news-item .item-info .author-info-wrapper {
+    margin-bottom: 36px;
+}
+
+.news-item .item-info .author-info-wrapper .author-img {
+    width: 138px;
+    height: 138px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.news-item .item-info .author-info-wrapper .author-img img {
+    width: 100%;
+}
+
+ .news-item .item-info .author-info-wrapper .author-info .author-name {
+    max-width: 180px;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.news-item .item-info .upload-info-wrapper {
+    margin-bottom: 40px;
+    font-size: 13px;
+}
+
+.news-item .item-info .upload-info-wrapper .upload-count::after {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin: 10px auto;
+    background-color: #585858;
+}
+
+.news-item .item-content {
+    width: 100%;
+}
+
+.news-item .item-content .previews-col {
+    line-height: 0;
+}
+
+.previews-col {
+    flex-basis: 66%;
+}
+
+.news-item .item-content .previews-col {
+    line-height: 0;
+}
+
+.grid-item {
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.grid-item img.absolute {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    max-width: unset;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.grid-item .grid-item-overlay {
+    padding: 20px;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.news {
+    background: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 70%,rgba(0,0,0,.3) 100%);
+}
+
+.grid-item .grid-item-overlay .overlay-top .btn-like {
+    font-size: 32px;
+}
+
+.grid-item:hover .grid-item-overlay {
+    opacity: 1;
+}
+
+.flex-basis-100 {
+    flex-basis: 100%!important;
+}
+
+.grid-item .grid-item-overlay .overlay-bottom .likes-count::before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f164";
+}
+
+.grid-item .grid-item-overlay .overlay-bottom .views-count::before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f06e";
+}
+
+.grid-item .grid-item-overlay .overlay-bottom .likes-count::before, 
+.grid-item .grid-item-overlay .overlay-bottom .views-count::before {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.fa-icon.fa-heart:hover {
+    color: #e12ebc;
+}

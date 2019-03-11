@@ -1,0 +1,7 @@
+<section class="news-feed bg-light-primary">
+  <div class="container">
+      <ng-container *ngFor="let newsItem of news">
+        <app-news [item]="newsItem"></app-news>
+      </ng-container>
+  </div>
+</section>

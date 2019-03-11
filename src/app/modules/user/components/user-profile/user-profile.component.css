@@ -1,0 +1,112 @@
+.user-avatar-wrapper {
+    max-width: 138px;
+    width: 100%;
+    margin-right: 18px;
+}
+
+.user-avatar-wrapper .user-avatar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    font-size: 14px;
+}
+
+.user-avatar {
+    width: 138px;
+    height: 138px;
+    border-radius: 50%;
+    background-color: #b0b0b0;
+    overflow: hidden;
+}
+
+.user-avatar img {
+    width: 100%;
+}
+
+.user-avatar .user-avatar-overlay {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(70,70,70,.7);
+    opacity: 0;
+}
+
+.user-avatar .user-avatar-overlay .fa-icon {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.fa, .fas {
+    font-weight: 900;
+}
+
+.user-avatar:hover .user-avatar-overlay {
+    opacity: 1;
+}
+
+.profile-data {
+    max-width: 190px;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.profile-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.stats-points-count {
+    font-size: 24px;
+}
+
+.stats-points-img {
+    width: 50px;
+    height: 19px;
+    background-image: url(/assets/img/points-stars.png);
+    background-repeat: no-repeat;
+}
+
+.stats-points-desc {
+    margin-left: 8px;
+}
+
+.tab {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    padding: 12px 15px;
+    cursor: pointer;
+}
+
+.tab:hover,
+.tab.active {
+    color: #7303c0;
+    background-color: #f2f2f2;
+}
+
+.tab .tab-count {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.tab .tab-name {
+    font-size: 13px;
+}
+
+.user-profile-wrap .user-cover .cover-btn {
+    opacity: 0;
+    position: absolute;
+    bottom: 80px;
+    left: 15px;
+}
+
+#background-input {
+    display: none;
+}
+
+.user-profile-wrap .user-cover:hover .cover-btn {
+    opacity: 1;
+    cursor: pointer;
+}

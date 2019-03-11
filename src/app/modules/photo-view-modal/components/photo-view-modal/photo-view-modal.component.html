@@ -1,0 +1,90 @@
+<div class="modal-container d-flex">
+  <div  class="modal modal-view-photo pos-relative">
+    <div  class="view-photo-wrap d-flex flex-column flex-lg-row">
+      <div  class="left-side d-flex justify-content-center align-items-center bg-dark-primary pos-relative">
+        <div  class="img-wrap overflow-hidden">
+          <img  alt="" class="pos-relative full-width" [src]="image?.url" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
+          <div  class="img-overlay d-flex justify-content-between align-items-center pos-absolute transition text-color-white">
+            <button  class="btn-like pos-absolute transition">
+              <i (click)="toggleImageLike(image._id); $event.stopPropagation();" [ngClass]="{ active: userService.isLiked(authUserId, image?.likes) }" class="fa-icon fa-heart cur-pointer far"></i>
+            </button>
+            <button  class="btn-prev d-flex justify-content-center align-items-center mr-auto transition ">
+              <i  class="fa-icon fas fa-chevron-left cur-pointer"></i>
+            </button>
+            <button  class="btn-next d-flex justify-content-center align-items-center transition ">
+              <i  class="fa-icon fas fa-chevron-right cur-pointer"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div  class="right-side d-flex flex-column bg-light-secondary pos-relative">
+        <div  class="right-side-container ">
+          <button (click)="closeModal()"  class="btn-close-modal-inside fas fa-times pos-absolute text-color-black"></button>
+          <div  class="author-info d-flex align-items-center border-bottom">
+            <a  class="author-photo flex-shrink-0 overflow-hidden" [href]="'users/' + image?.owner._id">
+              <img  alt="" [src]="image?.owner.avatar">
+            </a>
+            <div  class="d-flex flex-column overflow-hidden">
+              <a  class="author-name text-overflow-ellipsis" [href]="'users/' + image?.owner._id">{{ image?.owner.full_name }}</a>
+              <span  class="author-country text-color-gray text-overflow-ellipsis">{{ image?.owner.city }}</span>
+            </div>
+          </div>
+          <div  class="photo-stats d-flex justify-content-center border-bottom cur-default">
+            <div  class="stats-views stats-item active d-flex flex-column align-items-center justify-content-end transition">
+              <i  class="fa-icon fas fa-eye"></i>
+              <span  class="stats-count">{{ image?.views.length }}</span>
+              <span  class="stats-desc text-uppercase">Views</span>
+            </div>
+            <div  class="stats-likes stats-item d-flex flex-column align-items-center justify-content-end transition">
+              <i  class="fa-icon fas fa-thumbs-up"></i>
+              <span  class="stats-count">{{ image?.likes.length }}</span>
+              <span  class="stats-desc text-uppercase">Likes</span>
+            </div>
+            <div  class="stats-glories stats-item d-flex flex-column align-items-center justify-content-end transition">
+              <i  class="fa-icon fas fa-medal"></i>
+              <span  class="stats-count">{{ image?.glories.length }}</span>
+              <span  class="stats-desc text-uppercase">Glories</span>
+            </div>
+          </div>
+          <form *ngIf="image && image.owner._id == authUserId" (ngSubmit)='onSubmit()' #form='ngForm'  
+          class="photo-info border-bottom d-flex flex-column ng-untouched ng-pristine ng-valid mb-4" novalidate>
+            <input #title="ngModel" [(ngModel)]='image.title' formcontrolname="title" id="title" name="title"  class="transition ng-untouched ng-pristine ng-valid" 
+            placeholder="Add image title" type="text" required>
+
+            <textarea #description="ngModel" [(ngModel)]='image.description' id="description" name="description" formcontrolname="description"  class="transition ng-untouched ng-pristine ng-valid" 
+             placeholder="Add image description" required></textarea>
+            <div  class="align-self-end">
+              <button [disabled]='form.invalid || form.pristine' type="submit" class="btn btn-border-gradient btn-bg-light mt-2 small-btn">
+                <span  class="btn-wrapper">
+                  <span >Submit</span>
+                </span>
+              </button>
+            </div>
+          </form>
+
+          <div class="comments-tree">
+            <ng-container *ngFor="let comment of image?.comments">
+              <app-comment [comment]="comment" [isComment]="true" [authUserId]="authUserId" (commentChanged)="getImage()"></app-comment>
+              <ng-container *ngFor="let reply of comment.sub_comments">
+                <app-comment [comment]="reply" [isComment]="false" [authUserId]="authUserId" [commentId]="comment._id" (commentChanged)="getImage()"></app-comment>
+              </ng-container>
+            </ng-container>
+          </div> 
+
+          <app-form-comment [imageId]="imageId" (commentChanged)="getImage()"></app-form-comment>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

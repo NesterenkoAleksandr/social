@@ -1,0 +1,55 @@
+<footer  id="footer">
+  <div  class="footer-top">
+    <div  class="container d-flex flex-column flex-xl-row justify-content-between align-items-center align-items-xl-start">
+      <div  class="footer-left-side">
+        <nav  class="footer-nav d-flex flex-column flex-md-row text-uppercase">
+          <a  class="transition" href="/legal/general">General</a>
+          <a  class="transition" href="/legal/conditions">Conditions</a>
+          <a  class="transition" href="/legal/rights">Rights</a>
+          <a  class="transition" href="/legal/terms">Terms</a>
+          <a  class="transition" href="/legal/privacy-policy">Privacy Policy</a>
+        </nav>
+        <div  class="subscribe">
+          <form (submit)="onSubscribe()" novalidate>
+            <input #emailName="ngModel" [(ngModel)]='email' name="emailName" placeholder="Email Address" type="email" required>
+            <p >Receive tips, tricks, and freebies right into your inbox. Enter your email and hit enter!</p>
+          </form>          
+        </div>
+      </div>
+    <div  class="footer-right-side d-flex flex-column align-items-center align-items-xl-start">
+      <a  class="footer-logo" routerlink="/">
+        <img  alt="" src="assets/img/logo.png"></a>
+        <p  class="footer-description"> We are a new social website focusing only on selfies and portraits. 
+          Our mission is to determine which photos get the most liked from the people around the world. 
+          As selfies are getting more and more popular we believe it is important to categorize them in order to understand better people opinion. </p>
+        <ul  class="footer-socials-nav d-flex">
+          <li >
+            <a  class="d-flex justify-content-center align-items-center transition" href="https://www.facebook.com/mostlikedperson/" target="_blank">
+              <i  class="fa-icon fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li >
+            <a  class="d-flex justify-content-center align-items-center transition" href="https://twitter.com/mostlikedperson" target="_blank">
+              <i  class="fa-icon fab fa-twitter"></i>
+            </a>
+          </li>
+          <li >
+            <a  class="d-flex justify-content-center align-items-center transition" href="https://twitter.com/mostlikedperson" target="_blank">
+              <i  class="fa-icon fab fa-google-plus-g"></i>
+            </a>
+          </li>
+          <li >
+            <a  class="d-flex justify-content-center align-items-center transition" href="https://www.youtube.com/channel/UCmJaT5vRjQt3_wsAz2nvRVA" target="_blank">
+              <i  class="fa-icon fab fa-youtube"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div  class="footer-bottom">
+    <div  class="container d-flex justify-content-center justify-content-xl-start">
+      <span  class="text-center">Copyright 2018 | All Rights Reserved by MostlikedPerson</span>
+    </div>
+  </div>
+</footer>
