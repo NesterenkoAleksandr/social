@@ -10,6 +10,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HeaderModule } from './modules/header/header.module';
 import { FormsModule } from '@angular/forms';
 import { FooterModule } from './modules/footer/footer.module';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FooterModule } from './modules/footer/footer.module';
     ToastModule,
     HeaderModule,
     FormsModule,
-    FooterModule
+    FooterModule,
+    LoadingBarHttpClientModule
   ],
   providers: [MessageService, {
     provide: HTTP_INTERCEPTORS,
