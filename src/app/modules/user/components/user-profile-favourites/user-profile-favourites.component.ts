@@ -18,6 +18,9 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
   /** Массив изображений пользователя */
   public images: Image[];
 
+  // Идентификаторы лайкнутых пользователем изображений
+  public imagesIds: Array<string>;
+
   public photoViewModalIsOpened = false;
   public currentImageId: string;
 
@@ -35,8 +38,9 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
    */
   public getUserFavorites() {
     this.userService.getUserFavorites(this.userId).subscribe(
-      (image: Array<Image>) => {
-        this.images = image;
+      (images: Array<Image>) => {
+        this.images = images;
+        this.imagesIds = images.map(image => image._id);
       }
     );
   }

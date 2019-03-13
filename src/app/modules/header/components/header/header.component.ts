@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   @Input() authUserId: string;
+
   constructor(
     private auth: AuthService,
     private router: Router

@@ -19,6 +19,9 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
   /** Массив изображений пользователя */
   public images: Image[];
 
+  // Идентификаторы лайкнутых пользователем изображений
+  public imagesIds: Array<string>;
+
   public uploadPhotosModalIsOpened = false;
   public photoViewModalIsOpened = false;
 
@@ -41,6 +44,7 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
     this.userService.getUserImages(this.userId).subscribe(
     (images: Array<Image>) => {
       this.images = images;
+      this.imagesIds = images.map(image => image._id);
     });
   }
 

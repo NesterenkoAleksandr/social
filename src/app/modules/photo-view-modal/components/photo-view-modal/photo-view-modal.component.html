@@ -8,11 +8,11 @@
             <button  class="btn-like pos-absolute transition">
               <i (click)="toggleImageLike(image._id); $event.stopPropagation();" [ngClass]="{ active: userService.isLiked(authUserId, image?.likes) }" class="fa-icon fa-heart cur-pointer far"></i>
             </button>
-            <button  class="btn-prev d-flex justify-content-center align-items-center mr-auto transition ">
-              <i  class="fa-icon fas fa-chevron-left cur-pointer"></i>
+            <button class="btn-prev d-flex justify-content-center align-items-center mr-auto transition ">
+              <i *ngIf="currIndex > 0" (click)="movePrev()" class="fa-icon fas fa-chevron-left cur-pointer"></i>
             </button>
             <button  class="btn-next d-flex justify-content-center align-items-center transition ">
-              <i  class="fa-icon fas fa-chevron-right cur-pointer"></i>
+              <i *ngIf="currIndex < images?.length - 1" (click)="moveNext()" class="fa-icon fas fa-chevron-right cur-pointer"></i>
             </button>
           </div>
         </div>

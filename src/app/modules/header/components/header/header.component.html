@@ -9,15 +9,15 @@
             <li class="ml-3"><a routerLink="/challenges" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Challenges</a></li>
             <li class="ml-3"><a routerLink="/news" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">News</a></li>
             <li class="ml-auto">
-                <div class="search-area dropdown d-none d-xl-flex align-items-center pos-relative">
+                <div class="search-area dropdown d-xl-flex align-items-center pos-relative">
                     <button (click)="search.toggle($event)" class="dropdown-btn fas fa-search transition z-index-1020"></button>
                 </div>
             </li>
             <li class="ml-3"><a class=" transition" (click)="onLogOut()">Sign out</a></li>
         </ul>
         </nav>
-    </div>
+    </div>    
 </div>
-<p-overlayPanel #search>
-    <app-search></app-search>
+<p-overlayPanel #search  [showTransitionOptions]="'2ms'" [hideTransitionOptions]="'2ms'" [dismissable]="true" (mouseenter)="search.show($event)" (mouseleave)="search.hide()">
+    <app-search ></app-search>
 </p-overlayPanel>

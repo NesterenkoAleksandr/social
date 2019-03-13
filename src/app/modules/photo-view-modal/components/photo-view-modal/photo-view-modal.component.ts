@@ -14,6 +14,10 @@ import { UserService } from '../../../../modules/user/services/user.service';
 })
 export class PhotoViewModalComponent implements OnInit {
   @Input() imageId: string;
+
+  /** Идентификаторы изображений пользователя */
+  @Input() images: Array<string>;
+
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onClose: EventEmitter<any> = new EventEmitter();
 
@@ -21,6 +25,9 @@ export class PhotoViewModalComponent implements OnInit {
 
   /** Id авторизованого пользователя */
   public authUserId: string;
+
+  /** Индекс текущего изображения в списке идентификаторов изображений пользователя */
+  public currIndex: number;
 
   constructor(
     private photoViewService: PhotoViewService,
@@ -31,6 +38,7 @@ export class PhotoViewModalComponent implements OnInit {
 
   ngOnInit() {
     this.authUserId = this.auth.getUserId;
+    this.currIndex = this.images.indexOf(this.imageId);
     this.getImage();
   }
 
@@ -79,5 +87,19 @@ export class PhotoViewModalComponent implements OnInit {
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
     );
+  }
+
+  /**
+   * Следующее изображение
+   */
+  public moveNext() {
+    this.imageId = this.images[++this.currIndex];
+    this.getImage();
+  }
+
+  /** Предыдущее изображение */
+  public movePrev() {
+    this.imageId = this.images[--this.currIndex];
+    this.getImage();
   }
 }

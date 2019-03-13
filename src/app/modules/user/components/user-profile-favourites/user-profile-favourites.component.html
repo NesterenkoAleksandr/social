@@ -1,7 +1,7 @@
-<div class="bg-light-primary py-5">
+<div class="bg-light-primary">
   <div id="profile-favorites">
-    <div  class="container mt-5">
-        <div  class="favorites-list d-flex flex-wrap pos-relative">
+    <div  class="container">
+        <div  class="favorites-list d-flex flex-wrap pos-relative mb-0">
           <div class="col-12">
             <span *ngIf="!images?.length" class="decorative-title text-center">There is no liked any photos yet…</span>
           </div>
@@ -16,5 +16,5 @@
     </div>
   </div>
 </div>
-<app-photo-view *ngIf="photoViewModalIsOpened" (onClose)="photoViewModalIsOpened = false" [imageId]="currentImageId"></app-photo-view>
+<app-photo-view *ngIf="photoViewModalIsOpened" (onClose)="photoViewModalIsOpened = false" [imageId]="currentImageId" [images]="imagesIds"></app-photo-view>
 

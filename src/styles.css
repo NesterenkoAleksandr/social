@@ -286,6 +286,10 @@ textarea.form-control {
   background-color: rgba(0,0,0,.65);
 }
 
+.cover-btn:hover {
+  background-color: rgba(0,0,0,1);
+}
+
 div {
   display: block;
 }
@@ -424,6 +428,13 @@ body .ui-overlaypanel .ui-overlaypanel-content {
   transition: .2s ease-out;
 }
 
+input::placeholder {
+  font-family: 'Roboto', sans-serif;
+  color:#fff;; 
+  font-weight: 100;
+  font-size: 30px;
+}
+
 .search-result {
   background-color: #fff;
   max-height: 290px;
@@ -484,3 +495,9 @@ body .ui-overlaypanel .ui-overlaypanel-content {
   position: absolute;
   pointer-events: none;
 }
+
+.ui-overlaypanel.ui-widget.ui-widget-content.ui-corner-all {
+  height: auto;
+}
+
+

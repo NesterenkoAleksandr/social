@@ -44,11 +44,13 @@ export class UserService {
    * @param imageUrl - адресс изображения
    */
   public removeUserImage(userId: string, imageId: string, imageUrl: string): Observable<ServerResponse> {
+    const divideUrl = imageUrl.split('/');
+
     const options = {
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({
         image_id: imageId,
-        image_url: imageUrl
+        image_url: `${divideUrl[divideUrl.length - 2]}/${divideUrl[divideUrl.length - 1]}`
       })
     };
 
