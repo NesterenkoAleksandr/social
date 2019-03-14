@@ -3,11 +3,11 @@
     <div  class="container d-flex flex-column flex-xl-row justify-content-between align-items-center align-items-xl-start">
       <div  class="footer-left-side">
         <nav  class="footer-nav d-flex flex-column flex-md-row text-uppercase">
-          <a  class="transition" href="/legal/general">General</a>
-          <a  class="transition" href="/legal/conditions">Conditions</a>
-          <a  class="transition" href="/legal/rights">Rights</a>
-          <a  class="transition" href="/legal/terms">Terms</a>
-          <a  class="transition" href="/legal/privacy-policy">Privacy Policy</a>
+          <a  class="transition" routerLink="/legal/general" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">General</a>
+          <a  class="transition" routerLink="/legal/conditions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Conditions</a>
+          <a  class="transition" routerLink="/legal/rights" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Rights</a>
+          <a  class="transition" routerLink="/legal/terms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Terms</a>
+          <a  class="transition" routerLink="/legal/privacy-policy" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Privacy Policy</a>
         </nav>
         <div  class="subscribe">
           <form (submit)="onSubscribe()" novalidate>
