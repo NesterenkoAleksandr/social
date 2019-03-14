@@ -1,0 +1,43 @@
+h1 {
+    color: #e12ebc;
+    font-size: 38px;
+    margin-bottom: 32px;
+}
+
+h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+ul {
+    counter-reset: list 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul li:before {
+    counter-increment: list;
+    content: counter(list);
+    color: #fff;
+    background-color: #e12ebc;
+    border-radius: 50%;
+    padding: 5px 10px;
+    margin-right: 5px;
+    align-self: flex-start;
+}
+
+li > p {
+    width: 95%;
+    margin: 0 0 0 auto;
+}
+
+ul > li + li {
+    margin-top: 10px;
+}
+
+li {
+    list-style-type: none;
+}

@@ -1,0 +1,30 @@
+<div class="container d-flex flex-lg-row flex-column">
+  <div>
+    <div class="navbar">
+      <ul >
+        <li [ngClass]="{'active': activeTab == 'general'}">
+          <a routerLink="/legal/general" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> General </a>
+        </li>
+        <li [ngClass]="{'active': activeTab == 'terms'}">
+          <a routerLink="/legal/terms" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Terms </a>
+        </li>
+        <li [ngClass]="{'active': activeTab == 'conditions'}">
+          <a routerLink="/legal/conditions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Conditions </a>
+        </li>
+        <li [ngClass]="{'active': activeTab == 'rights'}">
+          <a routerLink="/legal/rights" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Rights </a>
+        </li>
+        <li [ngClass]="{'active': activeTab == 'privacy-policy'}">
+          <a routerLink="/legal/privacy-policy" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"> Privacy Policy </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content">
+    <app-general *ngIf="activeTab == 'general'"></app-general>
+    <app-terms *ngIf="activeTab == 'terms'"></app-terms>
+    <app-conditions *ngIf="activeTab == 'conditions'"></app-conditions>
+    <app-rights *ngIf="activeTab == 'rights'"></app-rights>
+    <app-privacy-policy *ngIf="activeTab == 'privacy-policy'"></app-privacy-policy>
+  </div>
+</div>
