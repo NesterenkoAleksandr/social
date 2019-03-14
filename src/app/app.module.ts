@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { FooterModule } from './modules/footer/footer.module';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LegalModule } from './modules/legal/legal.module';
+import { LoaderModule } from './modules/loader/loader.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LegalModule } from './modules/legal/legal.module';
     FormsModule,
     FooterModule,
     LoadingBarHttpClientModule,
-    LegalModule
+    LegalModule,
+    LoaderModule
   ],
   providers: [MessageService, {
     provide: HTTP_INTERCEPTORS,

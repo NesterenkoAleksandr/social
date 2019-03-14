@@ -3,5 +3,6 @@
     <app-header [authUserId]="authUserId"></app-header>
 </ng-container>
 <p-toast position="top-left"></p-toast>
-<router-outlet></router-outlet>
+<app-loader *ngIf="isShowLoader"></app-loader>
+<router-outlet *ngIf="!isShowLoader"></router-outlet>
 <app-footer></app-footer>

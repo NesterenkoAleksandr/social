@@ -29,6 +29,8 @@ export class PhotoViewModalComponent implements OnInit {
   /** Индекс текущего изображения в списке идентификаторов изображений пользователя */
   public currIndex: number;
 
+  public isShowLoader: boolean;
+
   constructor(
     private photoViewService: PhotoViewService,
     private auth: AuthGlobalService,
@@ -46,8 +48,12 @@ export class PhotoViewModalComponent implements OnInit {
    * Получить изображение
    */
   public getImage() {
+    this.isShowLoader = true;
     this.photoViewService.getImage(this.imageId).subscribe((image: Image) => {
       this.image = image;
+      setTimeout(() => {
+        this.isShowLoader = false;
+      }, 500);
     });
   }
 

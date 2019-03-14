@@ -18,7 +18,8 @@
         </div>
       </div>
       <div  class="right-side d-flex flex-column bg-light-secondary pos-relative">
-        <div  class="right-side-container ">
+        <app-loader *ngIf="isShowLoader"></app-loader>
+        <div *ngIf="!isShowLoader" class="right-side-container ">
           <button (click)="closeModal()"  class="btn-close-modal-inside fas fa-times pos-absolute text-color-black"></button>
           <div  class="author-info d-flex align-items-center border-bottom">
             <a  class="author-photo flex-shrink-0 overflow-hidden" routerLink="/users/{{ image?.owner._id }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

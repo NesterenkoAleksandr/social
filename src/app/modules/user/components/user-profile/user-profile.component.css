@@ -95,6 +95,10 @@
     font-size: 13px;
 }
 
+.user-cover {
+    min-height: 400px;
+}
+
 .user-profile-wrap .user-cover .cover-btn {
     opacity: 0;
     position: absolute;

@@ -1,6 +1,6 @@
 <ng-container>
   <div class="section user-profile-wrap">
-    <div class="user-cover" *ngIf="user" [ngStyle]="{
+    <div class="user-cover" style="height: 400px;" [ngStyle]="{
       'background': 'url(' + user?.cover + ') no-repeat center/cover ', 
       'height': '400px'}">
       <div *ngIf="userProfileId == authUserId" class="container h-100 pos-relative">
