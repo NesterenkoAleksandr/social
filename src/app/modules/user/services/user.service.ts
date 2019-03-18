@@ -101,15 +101,16 @@ export class UserService {
   }
 
   /**
-   * Проверка того, что изображение было лайкнуто текущим авторизованым пользователем
-   * @param authUserId - идентификатор текущего авторизованого пользователя
-   * @param likes - список пользователей лайкнувших изображение
+   * Подписаться/отписаться от пользователя
+   * @param userId - идентификатор пользователя
    */
-  public isLiked(authUserId: string, likes: Array<string>): boolean {
-    if (!likes) {
-      return false;
-    }
-    return likes.some(userId => userId === authUserId);
+  public toggleFollowing(userId: string): Observable<ServerResponse> {
+    const httpHeaders = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      })
+    };
+    return this.http.put<ServerResponse>(`${this.apiUrl}/public/users/following/${userId}`, httpHeaders);
   }
 
   /**

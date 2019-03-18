@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Image } from '../../interfaces/image';
 import { UserService } from '../../services/user.service';
 import { MessageService } from 'primeng/api';
@@ -15,6 +15,9 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
 
   /** Id авторизованого пользователя */
   @Input() authUserId: string;
+
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onChanged = new EventEmitter<boolean>();
 
   /** Массив изображений пользователя */
   public images: Image[];
@@ -38,6 +41,14 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
   }
 
   /**
+   * Проверка на то, что тек. авт. пользователь лайкнул это изображение
+   * @param likes - идентификаторы пользователей, которые лайкнули тек. изображение
+   */
+  public isLiked(likes: Array<string>): boolean {
+    return likes.some((userId) => userId === this.authUserId);
+  }
+
+  /**
    * Получить c сервера фотографии пользователя
    */
   public getImages() {
@@ -46,6 +57,15 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
       this.images = images;
       this.imagesIds = images.map(image => image._id);
     });
+  }
+
+  /**
+   * Обработчик события "Фотографии добавлены"
+   */
+  public onCloseUplodeFiles() {
+    this.uploadPhotosModalIsOpened = false;
+    this.getImages();
+    this.onChanged.emit(true);
   }
 
   /**
@@ -68,6 +88,7 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
           this.getImages();
+          this.onChanged.emit(true);
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
@@ -84,6 +105,7 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
           this.getImages();
+          this.onChanged.emit(true);
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})

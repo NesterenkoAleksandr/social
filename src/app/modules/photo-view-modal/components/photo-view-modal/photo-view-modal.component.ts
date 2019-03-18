@@ -65,6 +65,17 @@ export class PhotoViewModalComponent implements OnInit {
   }
 
   /**
+   * Проверка на то, что тек. авт. пользователь лайкнул это изображение
+   * @param likes - идентификаторы пользователей, которые лайкнули тек. изображение
+   */
+  public isLiked(likes: Array<string>): boolean {
+    if (!likes) {
+      return false;
+    }
+    return likes.some((userId) => userId === this.authUserId);
+  }
+
+  /**
    * Изменить заголовок и описание изображения
    */
   public onSubmit() {

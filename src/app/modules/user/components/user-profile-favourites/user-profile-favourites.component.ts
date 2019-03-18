@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Image } from '../../interfaces/image';
 import { UserService } from '../../services/user.service';
@@ -14,6 +14,9 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
 
   /** Id авторизованого пользователя */
   @Input() authUserId: string;
+
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onChanged = new EventEmitter<boolean>();
 
   /** Массив изображений пользователя */
   public images: Image[];
@@ -31,6 +34,14 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {
     this.getUserFavorites();
+  }
+
+  /**
+   * Проверка на то, что тек. авт. пользователь лайкнул это изображение
+   * @param likes - идентификаторы пользователей, которые лайкнули тек. изображение
+   */
+  public isLiked(likes: Array<string>): boolean {
+    return likes.some((userId) => userId === this.authUserId);
   }
 
   /**
@@ -64,6 +75,7 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
           this.getUserFavorites();
+          this.onChanged.emit(true);
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})

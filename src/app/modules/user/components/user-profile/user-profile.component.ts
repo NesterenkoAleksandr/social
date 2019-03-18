@@ -15,7 +15,12 @@ import { Image } from '../../interfaces/image';
 export class UserProfileComponent implements OnInit {
   /** Пользователь, данные которого просматриваются */
   public user: User;
+
+  /** Изображения пользователя, данные которого просматриваются */
   public images: Array<string>;
+
+  /** Идентификаторы пользователей на которых подписан тек. авт. пользователь  */
+  public followings: Array<string>;
 
   /** Текущая вкладка */
   public activeTab = 'selfies';
@@ -38,6 +43,7 @@ export class UserProfileComponent implements OnInit {
       this.userProfileId = res.id;
       this.authUserId = this.auth.getUserId;
       this.getUserInfo(this.userProfileId);
+      // this.getUserFollows();
     });
   }
 

@@ -18,7 +18,7 @@
               <div  class="overlay-top d-flex">
                 <button class="btn-delete-photo ml-auto transition">
                   <i (click)="removeImage(image._id, image.url, $event); $event.stopPropagation();" *ngIf="authUserId == userId" class="fa-icon fas fa-trash"></i>
-                  <i (click)="toggleImageLike(image._id); $event.stopPropagation();" [ngClass]="{ active: userService.isLiked(authUserId, image?.likes) }" *ngIf="authUserId !== userId" class="fa-icon far fa-heart"></i>
+                  <i (click)="toggleImageLike(image._id); $event.stopPropagation();" [ngClass]="{ active: isLiked(image?.likes) }" *ngIf="authUserId !== userId" class="fa-icon far fa-heart"></i>
                 </button>
               </div>
               <div  class="overlay-bottom">
@@ -32,5 +32,5 @@
     </div>
   </div>
 </div>
-<app-upload-photos-modal *ngIf="uploadPhotosModalIsOpened" (onClose)="uploadPhotosModalIsOpened = false" (onUploadEnd)="uploadPhotosModalIsOpened = false; getImages();"></app-upload-photos-modal>
+<app-upload-photos-modal *ngIf="uploadPhotosModalIsOpened" (onClose)=" uploadPhotosModalIsOpened = false;" (onUploadEnd)="onCloseUplodeFiles()"></app-upload-photos-modal>
 <app-photo-view *ngIf="photoViewModalIsOpened" (onClose)="photoViewModalIsOpened = false" [imageId]="currentImageId" [images]="imagesIds"></app-photo-view>

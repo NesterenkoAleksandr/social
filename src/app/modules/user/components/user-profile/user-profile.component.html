@@ -16,7 +16,7 @@
         <div  class="profile-section d-flex flex-grow-1 align-items-center py-2">
           <div  class="user-avatar-wrapper pos-relative">
             <div  class="user-avatar text-color-white cur-pointer">
-              <img  alt="avatar" [src]="user?.avatar">
+              <img  alt="" [src]="user?.avatar">
               <div *ngIf="userProfileId == authUserId" class="user-avatar-overlay d-flex flex-column justify-content-center text-center pos-absolute transition ng-star-inserted">
                 <i  class="fa-icon fas fa-camera"></i>
                 <span >Change photo</span>
@@ -54,10 +54,10 @@
         </div>
     </div>
     <div class="user-tab-content">
-      <app-user-profile-images [userId]='userProfileId' [authUserId]="authUserId" *ngIf="activeTab == 'selfies'"></app-user-profile-images>
-      <app-user-profile-favourites [userId]='userProfileId' [authUserId]="authUserId" *ngIf="activeTab == 'favourites'"></app-user-profile-favourites>
-      <app-user-profile-follows [userId]='userProfileId' [authUserId]="authUserId" [path]="activeTab" *ngIf="activeTab == 'followers'"></app-user-profile-follows>
-      <app-user-profile-follows [userId]='userProfileId' [authUserId]="authUserId" [path]="activeTab" *ngIf="activeTab == 'followings'"></app-user-profile-follows>
+      <app-user-profile-images [userId]='userProfileId' [authUserId]="authUserId" *ngIf="activeTab == 'selfies'" (onChanged)="getUserInfo(userProfileId);"></app-user-profile-images>
+      <app-user-profile-favourites [userId]='userProfileId' [authUserId]="authUserId" *ngIf="activeTab == 'favourites'" (onChanged)="getUserInfo(userProfileId);"></app-user-profile-favourites>
+      <app-user-profile-follows [userId]='userProfileId' [authUserId]="authUserId" [path]="activeTab" (onChanged)="getUserInfo(userProfileId);" *ngIf="activeTab == 'followers'"></app-user-profile-follows>
+      <app-user-profile-follows [userId]='userProfileId' [authUserId]="authUserId" [path]="activeTab" (onChanged)="getUserInfo(userProfileId);" *ngIf="activeTab == 'followings'"></app-user-profile-follows>
     </div>
   </div>
 </ng-container>

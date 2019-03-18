@@ -19,8 +19,8 @@
               <span  class="follower-name"> {{ user?.full_name }}</span>
             </a>
             <span  class="follower-city text-color-gray">{{ user?.city }}</span>
-            <button  class="btn btn-bg-gray align-self-center btn-border-gradient ">
-              <span >follow</span>
+            <button (click)="toggleFollow(user._id);" class="btn btn-bg-gray align-self-center btn-border-gradient " [ngClass]="{ active: isFollowing(user?._id, followings) }">
+              <span >{{ isFollowing(user?._id, followings) ? 'following' : 'follow' }}</span>
             </button>
           </div>
         </div>
