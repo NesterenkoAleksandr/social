@@ -1,0 +1,22 @@
+.page-wrapper {
+    height: 100vh;
+}
+
+.container h1 {
+    font-size: 200px;
+    font-weight: 700;
+    color: #e12ebc;
+}
+
+.decorative-title {
+    opacity: 1;
+}
+
+.btn.btn-border-gradient {
+    color: #fff;
+    background: linear-gradient(to right,#7303c0 0,#ec38bc 76%,#fa66cb 100%);
+}
+
+.btn.btn-border-gradient.btn-bg-dark::before {
+    background-color: #212121;
+}
