@@ -45,6 +45,10 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
    * @param likes - идентификаторы пользователей, которые лайкнули тек. изображение
    */
   public isLiked(likes: Array<string>): boolean {
+    if (!likes) {
+      return;
+    }
+    console.log(likes);
     return likes.some((userId) => userId === this.authUserId);
   }
 

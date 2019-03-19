@@ -5,13 +5,17 @@ import { NewsRoutingModule } from './news-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { NewsPageComponent } from './components/news-page/news-page.component';
 import { RouterModule } from '@angular/router';
+import { PhotoViewModalModule } from '../photo-view-modal/photo-view-modal.module';
+import { UserModule } from '../user/user.module';
 
 @NgModule({
   declarations: [NewsComponent, NewsPageComponent],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    PhotoViewModalModule,
+    UserModule
   ],
   exports: [
     NewsComponent,

@@ -94,6 +94,10 @@ li {
   text-align: -webkit-match-parent;
 }
 
+.fa-icon.fa-heart:hover {
+  color: #e12ebc;
+}
+
 .text-pink {
   color: #e12ebc;
 }
@@ -494,6 +498,10 @@ input::placeholder {
 
 .ui-overlaypanel.ui-widget.ui-widget-content.ui-corner-all {
   height: auto;
+}
+
+.flex-basis-50 {
+  flex-basis: 50%!important;
 }
 
 

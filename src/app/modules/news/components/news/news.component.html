@@ -11,33 +11,83 @@
     </div>
     <div  class="upload-info-wrapper d-flex flex-row flex-md-column justify-content-between align-items-center">
       <span  class="upload-count">Uploaded {{ item?.pictures.length }} photos</span>
-      <span  class="upload-date">{{ item?.date | date : 'short' : 'UTC' | dateAgo }}</span>
+      <span  class="upload-date">{{ item?.date | date : 'short' | dateAgo }}</span>
     </div>
     <button  class="btn btn-bg-light align-self-center btn-border-gradient ng-star-inserted">
       <span >Follow</span>
     </button>
   </div>
   <div  class="item-content d-flex flex-column flex-md-row">
-    <div  class="previews-col first flex-basis-100">
-      <div  class="preview-wrap" style="height: 100%;" >
-        <div  class="grid-item pos-relative cur-pointer">
-          <img  alt="" class="absolute" [src]="item?.pictures[0].url" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
-          <div  class="grid-item-overlay d-flex flex-column justify-content-between pos-absolute transition text-color-white news">
-            <div  class="overlay-top d-flex">
-              <button  class="btn-like ml-auto transition">
-                <i  class="fa-icon fa-heart far"></i>
-              </button>
-            </div>
-            <div  class="overlay-bottom">
-              <span  class="views-count mr-3">{{ item?.pictures[0].views.length }}</span>
-              <span  class="likes-count">{{ item?.pictures[0].likes.length }}</span>
-            </div>
-          </div>
+      <div class="previews-col first" [ngClass]="{ 
+        'flex-basis-100': picturesLength == 1,
+        'flex-basis-50': picturesLength == 2 
+      }">
+        <div (click)="showPhotoPreview(item?.pictures[0]._id)" class="preview-wrap" style="height: 100%;" >          
+            <div class="grid-item pos-relative cur-pointer">
+              <img  alt="" class="absolute" [src]="item?.pictures[0].url" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
+              <div  class="grid-item-overlay d-flex flex-column justify-content-between pos-absolute transition text-color-white news">
+                <div  class="overlay-top d-flex">
+                  <button  class="btn-like ml-auto transition">
+                    <i (click)="toggleImageLike(item?.pictures[0]._id, $event.target); $event.stopPropagation();" [ngClass]="{ active: isLiked(item?.pictures[0].likes) }" class="fa-icon fa-heart fas"></i>
+                  </button>
+                </div>
+                <div  class="overlay-bottom">
+                  <span  class="views-count mr-3">{{ item?.pictures[0].views.length }}</span>
+                  <span  class="likes-count">{{ item?.pictures[0].likes.length }}</span>
+                </div>
+              </div>
+            </div>                
         </div>
       </div>
-    </div>
+      <!-- pictures.length >= 2  -->
+      <div  *ngIf="item?.pictures.length > 1" class="previews-col flex-grow-1" [ngClass]="{
+        'flex-basis-50': picturesLength == 2,
+        'd-flex flex-column': picturesLength > 2 
+      }">
+        <div (click)="showPhotoPreview(item?.pictures[1]._id)" class="preview-wrap" style="height: 100%;" >          
+            <div  class="grid-item pos-relative cur-pointer">
+              <img  alt="" class="absolute" [src]="item?.pictures[1].url" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
+              <div  class="grid-item-overlay d-flex flex-column justify-content-between pos-absolute transition text-color-white news">
+                <div  class="overlay-top d-flex">
+                  <button  class="btn-like ml-auto transition">
+                    <i (click)="toggleImageLike(item?.pictures[1]._id, $event.target); $event.stopPropagation();" [ngClass]="{ active: isLiked(item?.pictures[1].likes) }" class="fa-icon fa-heart fas"></i>
+                  </button>
+                </div>
+                <div  class="overlay-bottom">
+                  <span  class="views-count mr-3">{{ item?.pictures[1].views.length }}</span>
+                  <span  class="likes-count">{{ item?.pictures[1].likes.length }}</span>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- pictures.length > 2  -->
+        <div (click)="showPhotoPreview(item?.pictures[2]._id)" *ngIf="item?.pictures.length == 3" class="preview-wrap" style="height: 100%;" >          
+            <div  class="grid-item pos-relative cur-pointer">
+              <img  alt="" class="absolute" [src]="item?.pictures[2].url" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
+              <div  class="grid-item-overlay d-flex flex-column justify-content-between pos-absolute transition text-color-white news">
+                <div  class="overlay-top d-flex">
+                  <button  class="btn-like ml-auto transition">
+                    <i (click)="toggleImageLike(item?.pictures[2]._id, $event.target); $event.stopPropagation();" [ngClass]="{ active: isLiked(item?.pictures[2].likes) }" class="fa-icon fa-heart fas"></i>
+                  </button>
+                </div>
+                <div  class="overlay-bottom">
+                  <span  class="views-count mr-3">{{ item?.pictures[2].views.length }}</span>
+                  <span  class="likes-count">{{ item?.pictures[2].likes.length }}</span>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <a *ngIf="item?.pictures.length > 3" class="preview-wrap pos-relative h-100"routerLink="/users/{{ item?.owner._id }}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <img alt="" style="opacity: 1; transition: opacity 0.5s ease-in 0s;" [src]="item?.pictures[2].url">
+          <div class="photos-count-overlay d-flex justify-content-center align-items-center pos-absolute text-color-white">
+            <span class="photo-count">{{ item?.pictures.length - 2 }}</span>
+          </div>
+        </a>
+      </div>
   </div>
 </div>
+
 
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
+import { AuthGlobalService } from '../../../../services/auth-global.service';
 
 @Component({
   selector: 'app-news-page',
@@ -10,9 +11,22 @@ import { News } from '../../interfaces/news';
 export class NewsPageComponent implements OnInit {
   public news: Array<News>;
 
-  constructor(private newsService: NewsService) { }
+  /** Отобразить прелоадер */
+  public isShowLoader = true;
+
+  /** Id авторизованого пользователя */
+  public authUserId: string;
+
+  public photoViewModalIsOpened = false;
+  public currentImageId: string;
+  public imagesIds: Array<string>;
+
+  constructor(
+    private newsService: NewsService,
+    private auth: AuthGlobalService) { }
 
   ngOnInit() {
+    this.authUserId = this.auth.getUserId;
     this.getNews();
   }
 
@@ -27,5 +41,18 @@ export class NewsPageComponent implements OnInit {
         this.news =  news;
       }
     );
+  }
+
+  /**
+   * Открыть модальное окно
+   * @param imageId - идентификатор изображения
+   */
+  public showPhotoViewModal(imageId: string, imagesIds: Array<string>) {
+    if (!imageId || !imagesIds) {
+      return;
+    }
+    this.currentImageId = imageId;
+    this.imagesIds = imagesIds;
+    this.photoViewModalIsOpened = true;
   }
 }

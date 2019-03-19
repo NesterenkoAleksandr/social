@@ -1,7 +1,8 @@
 <section class="news-feed bg-light-primary">
   <div class="container">
       <ng-container *ngFor="let newsItem of news">
-        <app-news [item]="newsItem"></app-news>
+        <app-news [item]="newsItem" [authUserId]="authUserId" (onPhotoPreview)="showPhotoViewModal($event.imageId, $event.imagesIds)"></app-news>
       </ng-container>
   </div>
 </section>
+<app-photo-view *ngIf="photoViewModalIsOpened" (onClose)="photoViewModalIsOpened = false" [imageId]="currentImageId" [images]="imagesIds"></app-photo-view>
