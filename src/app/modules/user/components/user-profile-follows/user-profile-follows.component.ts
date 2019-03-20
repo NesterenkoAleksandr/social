@@ -43,7 +43,7 @@ export class UserProfileFollowsComponent implements OnInit, OnChanges {
    * Получить c сервера данные по подписчикам пользователя
    */
   public getUserFollows() {
-    this.userService.getUserFollowings(this.authUserId, this.path).subscribe(
+    this.userService.getUserFollowings(this.userId, this.path).subscribe(
       (users: Array<User>) => {
         this.users = users;
       }

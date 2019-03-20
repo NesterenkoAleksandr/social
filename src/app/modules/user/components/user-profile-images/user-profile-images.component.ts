@@ -48,7 +48,6 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
     if (!likes) {
       return;
     }
-    console.log(likes);
     return likes.some((userId) => userId === this.authUserId);
   }
 

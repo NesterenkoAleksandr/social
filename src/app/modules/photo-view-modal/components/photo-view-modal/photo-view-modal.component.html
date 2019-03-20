@@ -6,7 +6,7 @@
           <img  alt="" class="pos-relative full-width" [src]="image?.url" style="opacity: 1; transition: opacity 0.5s ease-in 0s;">
           <div  class="img-overlay d-flex justify-content-between align-items-center pos-absolute transition text-color-white">
             <button  class="btn-like pos-absolute transition">
-              <i (click)="toggleImageLike(image._id); $event.stopPropagation();" [ngClass]="{ active: isLiked(image?.likes) }" class="fa-icon fa-heart cur-pointer far"></i>
+              <i (click)="toggleImageLike(image._id); $event.stopPropagation();" [ngClass]="{ active: isLiked(image?.likes) }" class="fa-icon fa-heart cur-pointer fas"></i>
             </button>
             <button class="btn-prev d-flex justify-content-center align-items-center mr-auto transition ">
               <i *ngIf="currIndex > 0" (click)="movePrev()" class="fa-icon fas fa-chevron-left cur-pointer"></i>
