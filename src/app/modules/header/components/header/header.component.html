@@ -1,20 +1,21 @@
-<div class="header  pos-fixed ">
+<div class="header pos-fixed ">
     <div class="container d-flex align-items-center pos-relative">
         <a routerLink="/" class="header-logo">
         <img src="assets/img/logo.png" alt="">
         </a>
         <nav class="w-100">
-        <ul class="header-nav d-flex ml-5 align-items-center text-uppercase">
-            <li class="ml-3"><a routerLink="/users/{{authUserId}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">My profile</a></li>
-            <li class="ml-3"><a routerLink="/challenges" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Challenges</a></li>
-            <li class="ml-3"><a routerLink="/news" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">News</a></li>
-            <li class="ml-auto">
-                <div class="search-area dropdown d-xl-flex align-items-center pos-relative">
-                    <button (click)="search.toggle($event)" class="dropdown-btn fas fa-search transition z-index-1020"></button>
-                </div>
-            </li>
-            <li class="ml-3"><a class=" transition" (click)="onLogOut()">Sign out</a></li>
-        </ul>
+            <ul class="header-nav d-flex ml-5 align-items-center text-uppercase">
+                <li class="ml-3"><a routerLink="/users/{{authUserId}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">My profile</a></li>
+                <li class="ml-3"><a routerLink="/challenges" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Challenges</a></li>
+                <li class="ml-3"><a routerLink="/news" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">News</a></li>
+                <li class="ml-3"><a routerLink="/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Account</a></li>
+                <li class="ml-auto">
+                    <div class="search-area dropdown d-xl-flex align-items-center pos-relative">
+                        <button (click)="search.toggle($event)" class="dropdown-btn fas fa-search transition z-index-1020"></button>
+                    </div>
+                </li>
+                <li class="ml-3"><a class=" transition" (click)="onLogOut()">Sign out</a></li>
+            </ul>
         </nav>
     </div>    
 </div>

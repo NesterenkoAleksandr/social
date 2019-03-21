@@ -8,11 +8,11 @@ import { NotFoundRoutingModule } from './not-found-routing.module';
   declarations: [NotFoundComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    NotFoundRoutingModule
   ],
   exports: [
-    NotFoundComponent,
-    NotFoundRoutingModule
+    NotFoundComponent
   ]
 })
 export class NotFoundModule { }

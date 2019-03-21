@@ -12,6 +12,7 @@ import { ServerResponse } from '../../../interfaces/server-response';
 })
 export class AuthService {
   private apiUrl: string = environment.apiUrl;
+
   constructor(
     private http: HttpClient,
     httpBackend: HttpBackend

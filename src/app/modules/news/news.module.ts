@@ -15,11 +15,11 @@ import { UserModule } from '../user/user.module';
     SharedModule,
     RouterModule,
     PhotoViewModalModule,
-    UserModule
+    UserModule,
+    NewsRoutingModule
   ],
   exports: [
-    NewsComponent,
-    NewsRoutingModule
+    NewsComponent
   ]
 })
 export class NewsModule { }

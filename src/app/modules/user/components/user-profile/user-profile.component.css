@@ -4,6 +4,18 @@
     margin-right: 18px;
 }
 
+@media (max-width: 1199.98px) {
+    .profile-panel .profile-section .user-avatar-wrapper {
+        max-width: 110px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .profile-panel .profile-section .user-avatar-wrapper {
+        max-width: 60px;
+    }
+}
+
 .user-avatar-wrapper .user-avatar {
     position: absolute;
     top: 50%;
@@ -20,6 +32,29 @@
     background-color: #b0b0b0;
     overflow: hidden;
 }
+
+@media (max-width: 1199.98px) {
+    .user-avatar {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .profile-panel .profile-section .user-avatar-wrapper .user-avatar {
+        position: relative;
+        top: unset;
+        left: unset;
+        -webkit-transform: unset;
+        transform: unset;
+    }
+
+    .user-avatar {
+        width: 60px;
+        height: 60px;
+    }
+}
+
 
 .user-avatar img {
     width: 100%;
@@ -53,13 +88,36 @@
     padding-right: 10px;
 }
 
+@media (max-width: 1199.98px) {
+    .profile-panel .profile-section .profile-data {
+        max-width: 185px;
+    }
+}
+
 .profile-name {
     font-size: 18px;
     margin-bottom: 5px;
 }
 
+@media (max-width: 1199.98px) {
+    .profile-panel .profile-section .profile-data .profile-name {
+        font-size: 16px;
+    }
+
+    .profile-panel .profile-section .profile-data .profile-country {
+        font-size: 14px;
+    }
+}
+
 .stats-points-count {
     font-size: 24px;
+}
+
+@media (max-width: 1199.98px) {
+    .profile-panel .profile-section .profile-stats .stats-points-count {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
 }
 
 .stats-points-img {
@@ -69,8 +127,30 @@
     background-repeat: no-repeat;
 }
 
+@media (max-width: 1199.98px) {
+    .profile-panel .profile-section .profile-stats .stats-points-img {
+        width: 40px;
+        height: 14px;
+        background-size: contain;
+    }
+}
+
 .stats-points-desc {
     margin-left: 8px;
+}
+
+@media (max-width: 1199.98px) {
+    .profile-panel .profile-section .profile-stats .stats-points-desc {
+        font-size: 14px;
+        margin-left: 3px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .profile-panel .profile-section .profile-stats .stats-points-desc {
+        margin-top: 3px;
+        margin-left: 0;
+    }
 }
 
 .tab {
@@ -80,10 +160,21 @@
     cursor: pointer;
 }
 
-.tab:hover,
-.tab.active {
-    color: #7303c0;
-    background-color: #f2f2f2;
+@media (max-width: 1199.98px) {
+    .profile-panel .tabs-control .tab {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .profile-panel .tabs-control .tab {
+        border-top: 1px solid #dedede;
+    }
+
+    .profile-panel .tabs-control .tab.active {
+        background-color: #f9f9f9;
+    }
+    
 }
 
 .tab .tab-count {
@@ -93,6 +184,12 @@
 
 .tab .tab-name {
     font-size: 13px;
+}
+
+@media (max-width: 575.98px) {
+    .profile-panel .tabs-control {
+        width: 100%;
+    }
 }
 
 .user-cover {
@@ -117,3 +214,54 @@
 .user-profile-wrap {
     min-height: calc(100vh - 120px);
 }
+
+@media (max-width: 767.98px) {
+    .profile-panel .container {
+        max-width: unset;
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .profile-panel .container {
+        padding: 0;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .profile-panel .profile-section {
+        position: relative;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .profile-panel .profile-section::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        height: 1px;
+        display: block;
+        background: linear-gradient(to right,rgba(222,222,222,0) 0,#dedede 25%,#dedede 75%,rgba(222,222,222,0) 100%);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .profile-panel .profile-section {
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .profile-panel .profile-section .profile-stats {
+        margin-left: auto;
+    }
+}
+
+
+
+
+
+
+

@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   public isShowLoader = true;
 
   public authUserId: string;
+
   constructor(
     private auth: AuthGlobalService,
     private router: Router
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
       }
       if (event instanceof NavigationEnd) {
         this.authUserId = this.auth.getUserId;
+
         setTimeout(() => {
           this.isShowLoader = false;
         }, 1000);
