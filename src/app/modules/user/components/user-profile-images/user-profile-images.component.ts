@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Image } from '../../interfaces/image';
 import { UserService } from '../../services/user.service';
 import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile-images',
   templateUrl: './user-profile-images.component.html',
   styleUrls: ['./user-profile-images.component.css']
 })
-export class UserProfileImagesComponent implements OnInit, OnChanges {
+export class UserProfileImagesComponent implements OnInit, OnChanges, OnDestroy {
   /** Id пользователя, данные которого просматриваются  */
   @Input() userId: string;
 
@@ -29,6 +30,8 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
   public photoViewModalIsOpened = false;
 
   public currentImageId: string;
+
+  private subscriptions: Array<Subscription> = [];
 
   constructor(private userService: UserService, private messageService: MessageService) {
   }
@@ -55,11 +58,11 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
    * Получить c сервера фотографии пользователя
    */
   public getImages() {
-    this.userService.getUserImages(this.userId).subscribe(
+    this.subscriptions.push(this.userService.getUserImages(this.userId).subscribe(
     (images: Array<Image>) => {
       this.images = images;
       this.imagesIds = images.map(image => image._id);
-    });
+    }));
   }
 
   /**
@@ -86,7 +89,7 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
    * @param imageUrl - адрес изображения
    */
   public removeImage(imageId: string, imageUrl: string) {
-    this.userService.removeUserImage(this.userId, imageId, imageUrl).subscribe(
+    this.subscriptions.push(this.userService.removeUserImage(this.userId, imageId, imageUrl).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -95,7 +98,7 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
@@ -103,7 +106,7 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
    * @param imageId - идентификатор изображения
    */
   public toggleImageLike(imageId: string) {
-    this.userService.toggleImageLike(imageId).subscribe(
+    this.subscriptions.push(this.userService.toggleImageLike(imageId).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -112,6 +115,10 @@ export class UserProfileImagesComponent implements OnInit, OnChanges {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }
