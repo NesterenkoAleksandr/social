@@ -1,15 +1,17 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { CommentsService } from '../../services/comments.service';
 import { Comment } from '../../interfaces/comment';
 import {MessageService} from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-comment',
   templateUrl: './form-comment.component.html',
   styleUrls: ['./form-comment.component.css']
 })
-export class FormCommentComponent implements OnInit {
+export class FormCommentComponent implements OnInit, OnDestroy {
+
   @Input() isEdit: boolean;
 
   /** Идентификатор изображения */
@@ -26,6 +28,8 @@ export class FormCommentComponent implements OnInit {
 
   /** Событие "Добавление/изменение комментариев отменено" */
   @Output() changeCanceled: EventEmitter<any> = new EventEmitter();
+
+  private subscriptions: Array<Subscription> = [];
 
   constructor(private commentsService: CommentsService, private messageService: MessageService) { }
 
@@ -58,7 +62,7 @@ export class FormCommentComponent implements OnInit {
    * Добавить комментарий к изображению
    */
   public addComment() {
-    this.commentsService.addComment(this.imageId, this.comment.text).subscribe(
+    this.subscriptions.push(this.commentsService.addComment(this.imageId, this.comment.text).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
 
@@ -68,14 +72,14 @@ export class FormCommentComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
    * Изменить комментарий к изображению
    */
   public editComment() {
-    this.commentsService.editComment(this.comment._id, this.comment.text).subscribe(
+    this.subscriptions.push(this.commentsService.editComment(this.comment._id, this.comment.text).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
 
@@ -85,14 +89,14 @@ export class FormCommentComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
    * Добавление подкомментария
    */
   public addSubComment() {
-    this.commentsService.addSubComment(this.commentId, this.comment.text).subscribe(
+    this.subscriptions.push(this.commentsService.addSubComment(this.commentId, this.comment.text).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -101,14 +105,14 @@ export class FormCommentComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
    * Изменение подкомментария
    */
   public editSubComment() {
-    this.commentsService.editSubComment(this.commentId, this.comment._id, this.comment.text).subscribe(
+    this.subscriptions.push(this.commentsService.editSubComment(this.commentId, this.comment._id, this.comment.text).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
 
@@ -118,7 +122,7 @@ export class FormCommentComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
@@ -128,6 +132,10 @@ export class FormCommentComponent implements OnInit {
     this.isEdit = false;
     this.comment = Object.assign({});
     this.changeCanceled.emit();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }
 

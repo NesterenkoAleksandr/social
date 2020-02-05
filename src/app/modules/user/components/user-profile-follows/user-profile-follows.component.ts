@@ -1,16 +1,16 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user';
 import { ServerResponse } from 'src/app/interfaces/server-response';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile-follows',
   templateUrl: './user-profile-follows.component.html',
   styleUrls: ['./user-profile-follows.component.css']
 })
-export class UserProfileFollowsComponent implements OnInit, OnChanges {
-
+export class UserProfileFollowsComponent implements OnChanges, OnDestroy {
   /** Id пользователя, данные которого просматриваются  */
   @Input() userId: string;
 
@@ -29,10 +29,9 @@ export class UserProfileFollowsComponent implements OnInit, OnChanges {
   /** Массив с данными по подписчикам пользователя */
   public users: Array<User>;
 
-  constructor(private userService: UserService, private messageService: MessageService) { }
+  private subscriptions: Array<Subscription> = [];
 
-  ngOnInit() {
-  }
+  constructor(private userService: UserService, private messageService: MessageService) { }
 
   ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {
     this.getAuthUserFollows();
@@ -43,22 +42,22 @@ export class UserProfileFollowsComponent implements OnInit, OnChanges {
    * Получить c сервера данные по подписчикам пользователя
    */
   public getUserFollows() {
-    this.userService.getUserFollowings(this.userId, this.path).subscribe(
+    this.subscriptions.push(this.userService.getUserFollowings(this.userId, this.path).subscribe(
       (users: Array<User>) => {
         this.users = users;
       }
-    );
+    ));
   }
 
   /**
    * Получить c сервера данные по всем подпискам authUserId
    */
   public getAuthUserFollows() {
-    this.userService.getUserFollowings(this.authUserId, 'followers').subscribe(
+    this.subscriptions.push(this.userService.getUserFollowings(this.authUserId, 'followers').subscribe(
       (users: Array<User>) => {
         this.followings = this.followings = users.map((user => user._id));
       }
-    );
+    ));
   }
 
   /**
@@ -78,7 +77,7 @@ export class UserProfileFollowsComponent implements OnInit, OnChanges {
    * @param userId - идентификатор пользователя
    */
   public toggleFollow(userId: string) {
-    this.userService.toggleFollowing(userId).subscribe(
+    this.subscriptions.push(this.userService.toggleFollowing(userId).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -87,6 +86,10 @@ export class UserProfileFollowsComponent implements OnInit, OnChanges {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

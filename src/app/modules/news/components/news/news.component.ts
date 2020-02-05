@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { News } from '../../interfaces/news';
 import { UserService } from '../../../../modules/user/services/user.service';
 import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css']
 })
-export class NewsComponent implements OnInit {
+export class NewsComponent implements OnInit, OnDestroy {
   @Input() item: News;
 
   /** Идентификатор авторизованого пользователя */
@@ -22,6 +23,8 @@ export class NewsComponent implements OnInit {
   public imagesIds: Array<string>;
 
   public picturesLength = 0;
+
+  private subscription: Subscription;
 
   constructor(
     private userService: UserService,
@@ -45,10 +48,7 @@ export class NewsComponent implements OnInit {
    * @param likes - идентификаторы пользователей, которые лайкнули тек. изображение
    */
   public isLiked(likes: Array<string>): boolean {
-    if (!likes) {
-      return;
-    }
-    return likes.some((userId) => userId === this.authUserId);
+    return !likes ? false : likes.some((userId) => userId === this.authUserId);
   }
 
   /**
@@ -56,7 +56,7 @@ export class NewsComponent implements OnInit {
    * @param imageId - идентификатор изображения
    */
   public toggleImageLike(imageId: string, element) {
-    this.userService.toggleImageLike(imageId).subscribe(
+    this.subscription = this.userService.toggleImageLike(imageId).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -65,5 +65,11 @@ export class NewsComponent implements OnInit {
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
     );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { User } from '../../../../modules/user/interfaces/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnDestroy {
   public users: Array<User>;
 
   public isResultShow = false;
 
-  constructor(private searchService: SearchService) { }
+  private subscription: Subscription;
 
-  ngOnInit() {
-  }
+  constructor(private searchService: SearchService) { }
 
   /**
    * Обработка события "Изменение условия поиска"
@@ -28,10 +28,16 @@ export class SearchComponent implements OnInit {
     }
 
     this.isResultShow = true;
-    this.searchService.searchUser(searchText).subscribe(
+    this.subscription = this.searchService.searchUser(searchText).subscribe(
       (users: Array<User>) => {
         this.users = users;
       }
     );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

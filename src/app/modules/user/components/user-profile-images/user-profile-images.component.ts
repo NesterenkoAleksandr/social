@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Image } from '../../interfaces/image';
 import { UserService } from '../../services/user.service';
 import { MessageService } from 'primeng/api';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './user-profile-images.component.html',
   styleUrls: ['./user-profile-images.component.css']
 })
-export class UserProfileImagesComponent implements OnInit, OnChanges, OnDestroy {
+export class UserProfileImagesComponent implements OnChanges, OnDestroy {
   /** Id пользователя, данные которого просматриваются  */
   @Input() userId: string;
 
@@ -34,9 +34,6 @@ export class UserProfileImagesComponent implements OnInit, OnChanges, OnDestroy 
   private subscriptions: Array<Subscription> = [];
 
   constructor(private userService: UserService, private messageService: MessageService) {
-  }
-
-  ngOnInit() {
   }
 
   ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {

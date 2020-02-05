@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChallengesService } from '../../services/challenges.service';
 import { Challenge } from '../../interfaces/challenge';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-challenges-page',
@@ -12,7 +13,7 @@ export class ChallengesPageComponent implements OnInit {
   public activeTab: string;
 
   /** Соревнования */
-  public challenges: Array<Challenge>;
+  public challenges$: Observable<Array<Challenge>>;
 
   constructor(private challengesService: ChallengesService) { }
 
@@ -29,9 +30,7 @@ export class ChallengesPageComponent implements OnInit {
   public getChallenges(isActive: number, isClosed: number, activeTab: string) {
     this.activeTab = activeTab;
 
-    this.challengesService.getChallenges(isActive, isClosed).subscribe((data: Challenge[]) => {
-      this.challenges = data;
-    });
+    this.challenges$ = this.challengesService.getChallenges(isActive, isClosed);
   }
 
 }

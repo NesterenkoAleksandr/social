@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from './../../../../helpers/errorStateMatcher';
 import { AuthService } from '../../services/auth.service';
@@ -6,15 +6,18 @@ import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ServerResponse } from './../../../../interfaces/server-response';
 import { User } from '../../interfaces/User';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   public SignUpForm: FormGroup;
   public matcher = new MyErrorStateMatcher();
+
+  private subscription: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -59,7 +62,7 @@ export class SignupComponent implements OnInit {
       date_of_birth_year: this.SignUpForm.get('date_of_birth_year').value
     };
 
-    this.authService.signUp(user).subscribe(
+    this.subscription = this.authService.signUp(user).subscribe(
       (res: ServerResponse) => {
         if (res.error) {
           this.messageService.add({severity: 'error', summary: 'Error message', detail: res.message});
@@ -70,6 +73,12 @@ export class SignupComponent implements OnInit {
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Server error:', detail: error.message})
     );
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

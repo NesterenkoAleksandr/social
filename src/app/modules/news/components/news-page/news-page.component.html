@@ -1,6 +1,6 @@
 <section class="news-feed bg-light-primary">
   <div class="container">
-      <ng-container *ngFor="let newsItem of news">
+      <ng-container *ngFor="let newsItem of news$ | async">
         <app-news [item]="newsItem" [authUserId]="authUserId" (onPhotoPreview)="showPhotoViewModal($event.imageId, $event.imagesIds)"></app-news>
       </ng-container>
   </div>

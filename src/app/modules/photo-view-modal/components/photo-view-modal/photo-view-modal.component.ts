@@ -1,18 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { PhotoViewService } from '../../services/photo-view.service';
 import { Image } from '../../../user/interfaces/image';
-import { NgForm} from '@angular/forms';
 import { AuthGlobalService } from 'src/app/services/auth-global.service';
 import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
 import { UserService } from '../../../../modules/user/services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-photo-view',
   templateUrl: './photo-view-modal.component.html',
   styleUrls: ['./photo-view-modal.component.css']
 })
-export class PhotoViewModalComponent implements OnInit {
+export class PhotoViewModalComponent implements OnInit, OnDestroy {
   @Input() imageId: string;
 
   /** Идентификаторы изображений пользователя */
@@ -30,6 +30,8 @@ export class PhotoViewModalComponent implements OnInit {
   public currIndex: number;
 
   public isShowLoader: boolean;
+
+  private subscriptions: Array<Subscription> = [];
 
   constructor(
     private photoViewService: PhotoViewService,
@@ -49,12 +51,12 @@ export class PhotoViewModalComponent implements OnInit {
    */
   public getImage() {
     this.isShowLoader = true;
-    this.photoViewService.getImage(this.imageId).subscribe((image: Image) => {
+    this.subscriptions.push(this.photoViewService.getImage(this.imageId).subscribe((image: Image) => {
       this.image = image;
       setTimeout(() => {
         this.isShowLoader = false;
       }, 500);
-    });
+    }));
   }
 
   /**
@@ -79,7 +81,7 @@ export class PhotoViewModalComponent implements OnInit {
    * Изменить заголовок и описание изображения
    */
   public onSubmit() {
-    this.photoViewService.editImageInfo(this.imageId, this.image.title, this.image.description).subscribe(
+    this.subscriptions.push(this.photoViewService.editImageInfo(this.imageId, this.image.title, this.image.description).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -87,7 +89,7 @@ export class PhotoViewModalComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
@@ -95,7 +97,7 @@ export class PhotoViewModalComponent implements OnInit {
    * @param imageId - идентификатор изображения
    */
   public toggleImageLike(imageId: string) {
-    this.userService.toggleImageLike(imageId).subscribe(
+    this.subscriptions.push(this.userService.toggleImageLike(imageId).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -103,7 +105,7 @@ export class PhotoViewModalComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
@@ -118,5 +120,9 @@ export class PhotoViewModalComponent implements OnInit {
   public movePrev() {
     this.imageId = this.images[--this.currIndex];
     this.getImage();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

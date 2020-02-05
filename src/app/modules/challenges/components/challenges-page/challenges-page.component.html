@@ -10,8 +10,8 @@
     <div class="tabs-content bg-light-primary pt-5">
         <div class="container">
           <div class="row">
-            <span class="decorative-title text-center w-100 mb-5" *ngIf="!challenges?.length" >There is no challenges yet…</span>
-            <ng-container *ngFor="let challenge of challenges">
+            <span class="decorative-title text-center w-100 mb-5" *ngIf="!(challenges$ | async)?.length" >There is no challenges yet…</span>
+            <ng-container *ngFor="let challenge of challenges$ | async">
                 <div class="col-12 col-lg-6 col-xl-4">
                   <app-challenges-item [challenge]="challenge"></app-challenges-item>
                 </div>

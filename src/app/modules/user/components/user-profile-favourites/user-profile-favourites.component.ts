@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Image } from '../../interfaces/image';
 import { UserService } from '../../services/user.service';
 import { ServerResponse } from '../../../../interfaces/server-response';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-user-profile-favourites',
   templateUrl: './user-profile-favourites.component.html',
   styleUrls: ['./user-profile-favourites.component.css']
 })
-export class UserProfileFavouritesComponent implements OnInit, OnChanges {
+export class UserProfileFavouritesComponent implements OnChanges, OnDestroy {
   /** Id пользователя, данные которого просматриваются  */
   @Input() userId: string;
 
@@ -27,10 +28,9 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
   public photoViewModalIsOpened = false;
   public currentImageId: string;
 
-  constructor(private userService: UserService, private messageService: MessageService) { }
+  private subscriptions: Array<Subscription> = [];
 
-  ngOnInit() {
-  }
+  constructor(private userService: UserService, private messageService: MessageService) { }
 
   ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {
     this.getUserFavorites();
@@ -48,12 +48,12 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
    * Получить c сервера избранные фотографии пользователя
    */
   public getUserFavorites() {
-    this.userService.getUserFavorites(this.userId).subscribe(
+    this.subscriptions.push(this.userService.getUserFavorites(this.userId).subscribe(
       (images: Array<Image>) => {
         this.images = images;
         this.imagesIds = images.map(image => image._id);
       }
-    );
+    ));
   }
 
   /**
@@ -70,7 +70,7 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
    * @param imageId - идентификатор изображения
    */
   public toggleImageLike(imageId: string) {
-    this.userService.toggleImageLike(imageId).subscribe(
+    this.subscriptions.push(this.userService.toggleImageLike(imageId).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -79,6 +79,10 @@ export class UserProfileFavouritesComponent implements OnInit, OnChanges {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

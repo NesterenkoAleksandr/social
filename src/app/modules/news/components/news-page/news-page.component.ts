@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { AuthGlobalService } from '../../../../services/auth-global.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-news-page',
@@ -9,7 +10,7 @@ import { AuthGlobalService } from '../../../../services/auth-global.service';
   styleUrls: ['./news-page.component.css']
 })
 export class NewsPageComponent implements OnInit {
-  public news: Array<News>;
+  public news$: Observable<Array<News>>;
 
   /** Отобразить прелоадер */
   public isShowLoader = true;
@@ -36,11 +37,7 @@ export class NewsPageComponent implements OnInit {
    * @param count - к-во последнихновостей
    */
   public getNews(page: number = 1, count: number = 15) {
-    this.newsService.getNews(page, count).subscribe(
-      (news: Array<News>) => {
-        this.news =  news;
-      }
-    );
+    this.news$ = this.newsService.getNews(page, count);
   }
 
   /**

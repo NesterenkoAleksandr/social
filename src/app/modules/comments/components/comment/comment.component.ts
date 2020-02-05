@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommentsService } from '../../services/comments.service';
 import { MessageService } from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
 import { Comment } from '../../interfaces/comment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnDestroy {
   @Input() isComment: boolean;
 
   /** Комментарий */
@@ -30,9 +31,9 @@ export class CommentComponent implements OnInit {
   /** Признак того, что выполняется добавление нового комментария/подкомментария */
   public isAdd: boolean;
 
-  constructor(private commentsService: CommentsService, private messageService: MessageService) { }
+  private subscriptions: Array<Subscription> = [];
 
-  ngOnInit() {  }
+  constructor(private commentsService: CommentsService, private messageService: MessageService) { }
 
   /** Отмена добавления/изменения записи */
   onCanceled() {
@@ -46,7 +47,7 @@ export class CommentComponent implements OnInit {
    * @param imageId - идентификатор изображения
    */
   public deleteComment(commentId: string, imageId: string) {
-    this.commentsService.deleteComment(commentId, imageId).subscribe(
+    this.subscriptions.push(this.commentsService.deleteComment(commentId, imageId).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -54,7 +55,7 @@ export class CommentComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
   }
 
   /**
@@ -63,7 +64,7 @@ export class CommentComponent implements OnInit {
    * @param subCommentId - идентификатор подкрмментария
    */
   public deleteSubComment(commentId: string, subCommentId: string) {
-    this.commentsService.deleteSubComment(commentId, subCommentId).subscribe(
+    this.subscriptions.push(this.commentsService.deleteSubComment(commentId, subCommentId).subscribe(
       (response: ServerResponse) => {
         this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
         if (!response.error) {
@@ -71,6 +72,10 @@ export class CommentComponent implements OnInit {
         }
       },
       (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
-    );
+    ));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

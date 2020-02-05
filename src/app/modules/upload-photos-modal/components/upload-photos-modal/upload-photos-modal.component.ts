@@ -1,14 +1,15 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { UploadPhotosService } from '../../services/upload-photos.service';
 import {MessageService} from 'primeng/api';
 import { ServerResponse } from '../../../../interfaces/server-response';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-upload-photos-modal',
   templateUrl: './upload-photos-modal.component.html',
   styleUrls: ['./upload-photos-modal.component.css']
 })
-export class UploadPhotosModalComponent implements OnInit {
+export class UploadPhotosModalComponent implements OnDestroy {
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onClose: EventEmitter<any> = new EventEmitter();
   // tslint:disable-next-line:no-output-on-prefix
@@ -17,10 +18,9 @@ export class UploadPhotosModalComponent implements OnInit {
   /** Массив для хранения, выбранных загрузки, фотографий */
   public photosArray = [];
 
-  constructor(private uploadPhotosService: UploadPhotosService, private messageService: MessageService) { }
+  private subscription: Subscription;
 
-  ngOnInit() {
-  }
+  constructor(private uploadPhotosService: UploadPhotosService, private messageService: MessageService) { }
 
   /** Закрыть модальное окно */
   public closeModal() {
@@ -47,7 +47,7 @@ export class UploadPhotosModalComponent implements OnInit {
    * Загрузить выбранные фотографии на сервер
    */
   public uploadPhotos() {
-    this.uploadPhotosService.uploadPhotos(this.photosArray).subscribe(
+    this.subscription = this.uploadPhotosService.uploadPhotos(this.photosArray).subscribe(
     (response: ServerResponse) => {
       this.messageService.add({severity: response.error ? 'error' : 'success', summary: 'Message:', detail: response.message});
       if (!response.error) {
@@ -56,5 +56,11 @@ export class UploadPhotosModalComponent implements OnInit {
     },
     (error) => this.messageService.add({severity: 'error', summary: 'Error Message:', detail: error.message})
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

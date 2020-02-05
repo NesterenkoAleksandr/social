@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-rights',
   templateUrl: './rights.component.html',
   styleUrls: ['./rights.component.css']
 })
-export class RightsComponent implements OnInit {
+export class RightsComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }
